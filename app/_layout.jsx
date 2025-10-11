@@ -1,13 +1,19 @@
 import { Stack } from "expo-router";
 import "./global.css";
-import { Text, View } from "react-native";
 import { PaperProvider } from "react-native-paper";
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  // useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 const RootLayout = () => {
   return (
-    <PaperProvider>
-      <Stack />
-    </PaperProvider>
+    <SafeAreaProvider>
+        <PaperProvider>
+          <Stack />
+        </PaperProvider>
+    </SafeAreaProvider>
   );
 };
 
