@@ -2,24 +2,20 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Questions from "../constants/temp";
-const Analysis = () => {
+
+const Result = () => {
   const [answers, setAnswers] = useState({});
 
   useEffect(() => {
     const loadAnswers = async () => {
       try {
-        // 1️⃣ Get current person ID
         const id = await AsyncStorage.getItem("currentPersonId");
-
         if (!id) return;
 
-        // 2️⃣ Load all people
         const storedPeople = await AsyncStorage.getItem("people");
         const people = storedPeople ? JSON.parse(storedPeople) : [];
 
-        // 3️⃣ Find the person
         const person = people.find((p) => p.id === Number(id));
-
         if (person && person.quizAnswers) {
           setAnswers(person.quizAnswers);
         }
@@ -30,35 +26,28 @@ const Analysis = () => {
     loadAnswers();
   }, []);
 
-  const getCategoryScore = (category) => {
-    const currentScore = category.questions.reduce((sum, q) => {
-      const val = answers[q.id];
-      return sum + (typeof val === "number" ? val : 0);
-    }, 0);
-
-    const maxScore = category.questions.length * 2;
-    return { currentScore, maxScore };
-  };
-
   return (
     <ScrollView style={styles.container}>
-      {Questions.map((category) => {
-        const { currentScore, maxScore } = getCategoryScore(category);
-        return (
-          <View key={category.id} style={styles.categoryContainer}>
-            <Text style={styles.categoryTitle}>{category.title}</Text>
-            <Text style={styles.scoreText}>
-              Score: {currentScore} / {maxScore}
-            </Text>
-          </View>
-        );
-      })}
+      {Questions.map((category) => (
+        <View key={category.id} style={styles.categoryContainer}>
+          <Text style={styles.categoryTitle}>{category.title}</Text>
+
+          {category.questions.map((q) => {
+            const score = answers[q.id] ?? 0; // default 0 if not answered
+            return (
+              <View key={q.id} style={styles.questionContainer}>
+                <Text style={styles.questionText}>{q.id}</Text>
+                <Text style={styles.scoreText}>{score}</Text>
+              </View>
+            );
+          })}
+        </View>
+      ))}
     </ScrollView>
   );
 };
 
-
-export default Analysis;
+export default Result;
 
 const styles = StyleSheet.create({
   container: {
@@ -74,10 +63,20 @@ const styles = StyleSheet.create({
   categoryTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: 12,
+  },
+  questionContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 4,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#ccc",
+  },
+  questionText: {
+    fontSize: 16,
   },
   scoreText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#22c55e",
   },
