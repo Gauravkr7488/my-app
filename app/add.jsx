@@ -4,7 +4,6 @@ import { FAB, TextInput } from "react-native-paper";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 async function saveName(newName) {
   try {
     // 1️⃣ Get existing people
