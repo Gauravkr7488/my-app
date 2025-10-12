@@ -38,6 +38,10 @@ const Quiz = () => {
     } catch (error) {
       console.log("Error saving answer:", error);
     }
+    
+    if (currentIndex < allQuestions.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const handleNext = async () => {
@@ -64,7 +68,11 @@ const Quiz = () => {
       />
 
       <View style={styles.navContainer}>
-        <Button title="Previous" onPress={handlePrevious} disabled={currentIndex === 0} />
+        <Button
+          title="Previous"
+          onPress={handlePrevious}
+          disabled={currentIndex === 0}
+        />
         <Button
           title={currentIndex === allQuestions.length - 1 ? "Finish" : "Next"}
           onPress={handleNext}
@@ -78,5 +86,9 @@ export default Quiz;
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, justifyContent: "center" },
-  navContainer: { flexDirection: "row", justifyContent: "space-between", marginTop: 20 },
+  navContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
 });
