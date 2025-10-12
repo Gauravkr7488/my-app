@@ -33,12 +33,28 @@ const Quiz = () => {
     setAnswers(updatedAnswers);
 
     try {
-      await AsyncStorage.setItem("quizAnswers", JSON.stringify(updatedAnswers));
-      console.log("Answer saved!");
+      // 1️⃣ Load all people
+      const storedPeople = await AsyncStorage.getItem("people");
+      const people = storedPeople ? JSON.parse(storedPeople) : [];
+
+      // 2️⃣ Find the person
+      const id = await AsyncStorage.getItem("currentPersonId");
+      const personIndex = people.findIndex((p) => p.id == id);
+      
+      if (personIndex === -1) throw new Error("Person not found");
+
+      // 3️⃣ Update quiz answers for that person
+      people[personIndex].quizAnswers = updatedAnswers;
+
+      // 4️⃣ Save back
+      await AsyncStorage.setItem("people", JSON.stringify(people));
+      // console.log("Answer saved under person!");
+      console.log(people);
     } catch (error) {
       console.log("Error saving answer:", error);
     }
-    
+
+    // Move to next question automatically
     if (currentIndex < allQuestions.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
@@ -49,7 +65,7 @@ const Quiz = () => {
       setCurrentIndex(currentIndex + 1);
     } else {
       // Quiz finished, navigate to analysis screen
-      await AsyncStorage.setItem("quizAnswers", JSON.stringify(answers));
+      // await AsyncStorage.setItem("quizAnswers", JSON.stringify(answers));
       router.push("/result"); // Change this path to your analysis screen route
     }
   };

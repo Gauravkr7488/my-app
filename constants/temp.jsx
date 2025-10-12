@@ -95,5 +95,83 @@ const Questions = [
   },
 ];
 
-
 export default Questions;
+
+[
+  { id: 1, name: "joe" },
+  { id: 2, name: "joe" },
+  { id: 3, name: "joey" },
+  { id: 4, name: "joi" },
+  { id: 5, name: "joiy" },
+  { id: 6, name: "joy" },
+  { id: 7, name: "joye" },
+  { id: 8, name: "joji" },
+  {
+    id: 9,
+    name: "jocky",
+    quizAnswers: {
+      convo_X: 1,
+      convo_Y: 2,
+      effort_X: 1,
+      effort_Y: 2,
+      emotional_X: 1,
+      emotional_Y: 2,
+      growth_alignment: 2,
+      happiness_X: 1,
+      happiness_Y: 2,
+      interaction_X: 1,
+      interaction_Y: 2,
+      trust_X: 1,
+      trust_Y: 2,
+    },
+  },
+];
+
+[
+  { id: 1, name: "joe" },
+  { id: 2, name: "joe" },
+  { id: 3, name: "joey" },
+  { id: 4, name: "joi" },
+  { id: 5, name: "joiy" },
+  { id: 6, name: "joy" },
+  { id: 7, name: "joye" },
+  { id: 8, name: "joji" },
+  {
+    id: 9,
+    name: "jocky",
+    quizAnswers: {
+      convo_X: 1,
+      convo_Y: 2,
+      effort_X: 1,
+      effort_Y: 2,
+      emotional_X: 1,
+      emotional_Y: 2,
+      growth_alignment: 2,
+      happiness_X: 1,
+      happiness_Y: 2,
+      interaction_X: 1,
+      interaction_Y: 2,
+      trust_X: 1,
+      trust_Y: 2,
+    },
+  },
+  {
+    id: 10,
+    name: "rocky",
+    quizAnswers: {
+      convo_X: 1,
+      convo_Y: 0,
+      effort_X: 0,
+      effort_Y: 1,
+      emotional_X: 1,
+      emotional_Y: 2,
+      growth_alignment: -1,
+      happiness_X: 1,
+      happiness_Y: 1,
+      interaction_X: 2,
+      interaction_Y: 1,
+      trust_X: 1,
+      trust_Y: 2,
+    },
+  },
+];

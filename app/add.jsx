@@ -26,7 +26,7 @@ async function saveName(newName) {
     people.push(newPerson);
     await AsyncStorage.setItem("people", JSON.stringify(people));
     console.log("Person saved successfully!");
-    return { success: true };
+    return { success: true, id: newPerson.id };
   } catch (error) {
     console.log("Error saving person:", error);
     return { success: false, error: "storage" };
@@ -58,7 +58,8 @@ const Add = () => {
     }
 
     setError("");
-    router.push("/quiz");
+    await AsyncStorage.setItem("currentPersonId", result.id.toString());
+    router.push(`/quiz`);
   };
 
   return (
