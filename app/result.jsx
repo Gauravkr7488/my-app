@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Questions from "../constants/temp";
+import { useRouter } from "expo-router";
+
 
 const Result = () => {
   const [answers, setAnswers] = useState({});
+    const router = useRouter();
 
   useEffect(() => {
     const loadAnswers = async () => {
@@ -27,23 +30,31 @@ const Result = () => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      {Questions.map((category) => (
-        <View key={category.id} style={styles.categoryContainer}>
-          <Text style={styles.categoryTitle}>{category.title}</Text>
+    <View
+    style = {styles.container}>
+      <ScrollView style={styles.container}>
+        {Questions.map((category) => (
+          <View key={category.id} style={styles.categoryContainer}>
+            <Text style={styles.categoryTitle}>{category.title}</Text>
 
-          {category.questions.map((q) => {
-            const score = answers[q.id] ?? 0; // default 0 if not answered
-            return (
-              <View key={q.id} style={styles.questionContainer}>
-                <Text style={styles.questionText}>{q.id}</Text>
-                <Text style={styles.scoreText}>{score}</Text>
-              </View>
-            );
-          })}
-        </View>
-      ))}
-    </ScrollView>
+            {category.questions.map((q) => {
+              const score = answers[q.id] ?? 0; // default 0 if not answered
+              return (
+                <View key={q.id} style={styles.questionContainer}>
+                  <Text style={styles.questionText}>{q.id}</Text>
+                  <Text style={styles.scoreText}>{score}</Text>
+                </View>
+              );
+            })}
+          </View>
+        ))}
+      </ScrollView>
+      <Button
+        title="View Analysis"
+        onPress={() => router.push("/analysis")}
+        color="#1e40af" // optional styling for clarity
+      />
+    </View>
   );
 };
 
