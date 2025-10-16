@@ -23,7 +23,7 @@ const Main = () => {
 
   const handlePressPerson = async (personId) => {
     await AsyncStorage.setItem("currentPersonId", String(personId));
-    router.push("/analysis"); // or "/quiz" depending on your flow
+    router.push("/person"); // or "/quiz" depending on your flow
   };
 
   return (
